@@ -1,7 +1,8 @@
-import React from 'react';
-import { Platform, StatusBar, Text, View } from 'react-native';
-import { displayName } from '~/../app.json';
+import React, { Suspense } from 'react';
+import { ActivityIndicator, Platform, StatusBar, View } from 'react-native';
 import useIsDarkMode from '~/hooks/useIsDarkMode';
+import HomeScreen from '~/screens/Home';
+import '~/services/i18n';
 
 function App() {
   const isDarkMode = useIsDarkMode();
@@ -10,11 +11,21 @@ function App() {
     StatusBar.setBackgroundColor(isDarkMode ? 'gray' : 'white');
   }
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={[{ color: isDarkMode ? 'white' : 'black' }]}>
-        {displayName}
-      </Text>
-    </View>
+    <Suspense
+      fallback={
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <ActivityIndicator />
+        </View>
+      }
+    >
+      <HomeScreen />
+    </Suspense>
   );
 }
 
