@@ -1,8 +1,12 @@
-import { Language } from '~/types';
+import { LanguageResources } from '~/types';
+import en from './en';
+import pt from './pt';
 
-export const languages: Language = {
-  en: 'en',
-  pt: 'pt',
+const getLanguage = (name: keyof LanguageResources) => name;
+
+export const fallbackLng = getLanguage('en');
+
+export const resources: LanguageResources = {
+  en,
+  pt,
 };
-export { default as en } from './en';
-export { default as pt } from './pt';
