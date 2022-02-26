@@ -1,7 +1,8 @@
 import React, { Suspense } from 'react';
 import { ActivityIndicator, Platform, StatusBar, View } from 'react-native';
 import useIsDarkMode from '~/hooks/useIsDarkMode';
-import HomeScreen from '~/screens/Home';
+import AppProvider from '~/providers/AppProvider';
+import Home from '~/screens/Home';
 import '~/services/i18n';
 
 function App() {
@@ -24,7 +25,9 @@ function App() {
         </View>
       }
     >
-      <HomeScreen />
+      <AppProvider>
+        <Home />
+      </AppProvider>
     </Suspense>
   );
 }
