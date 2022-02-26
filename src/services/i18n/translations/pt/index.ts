@@ -1,5 +1,10 @@
-import screen from './screen';
+import { Recourse } from '~/types';
+import app from './app';
+import navigate from './navigate';
 
-export default {
-  screen,
+const resource: Recourse = {
+  app,
+  navigate,
 };
+
+export default resource;

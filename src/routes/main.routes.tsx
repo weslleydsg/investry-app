@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { withTheme } from 'react-native-paper';
 import Home from '~/screens/Home';
 import { MainStack } from '~/types';
@@ -13,6 +14,7 @@ import { MainStack } from '~/types';
 const Stack = createNativeStackNavigator<MainStack>();
 
 const StackScreen = withTheme(({ theme }) => {
+  const { t } = useTranslation();
   const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
   const combinedTheme: Theme = {
     ...navigationTheme,
@@ -25,7 +27,11 @@ const StackScreen = withTheme(({ theme }) => {
   return (
     <NavigationContainer theme={combinedTheme}>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerTitle: t('headerTitle.home', { ns: 'navigate' }) }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

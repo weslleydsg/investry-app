@@ -1,9 +1,6 @@
-export interface Language {
-  en: 'en';
-  pt: 'pt';
-}
+import { LanguageResources } from '../i18n';
 
-export type SettingsLanguage = keyof Language;
+export type SettingsLanguage = keyof LanguageResources;
 
 export interface DeviceStorageData {
   settingsLanguage: SettingsLanguage;

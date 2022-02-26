@@ -11,7 +11,7 @@ const HomeScreen = withTheme(({ theme }) => {
       style={[styles.screen, { margin: theme.spacings.large }]}
       edges={['right', 'bottom', 'left']}
     >
-      <Headline>{t('screen.hello')}</Headline>
+      <Headline>{t('hello')}</Headline>
     </SafeAreaView>
   );
 });
