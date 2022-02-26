@@ -12,6 +12,12 @@ npm install
 yarn
 ```
 
+### Setup .env file
+
+```bash
+cp .env.example .env
+```
+
 ## Running the app
 
 ### Running metro bundler
