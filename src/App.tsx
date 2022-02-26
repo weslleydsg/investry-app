@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { ActivityIndicator, Platform, StatusBar, View } from 'react-native';
 import useIsDarkMode from '~/hooks/useIsDarkMode';
 import AppProvider from '~/providers/AppProvider';
-import Home from '~/screens/Home';
+import Routes from '~/routes';
 import '~/services/i18n';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
       }
     >
       <AppProvider>
-        <Home />
+        <Routes />
       </AppProvider>
     </Suspense>
   );
