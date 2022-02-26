@@ -5,6 +5,7 @@ export declare global {
 
     interface Theme {
       spacings: {
+        medium: number;
         large: number;
       };
     }
