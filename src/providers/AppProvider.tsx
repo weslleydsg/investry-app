@@ -1,6 +1,7 @@
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from '~/services/queryClient';
+import PaperProvider from './PaperProvider';
 
 interface Props {
   children: React.ReactNode;
@@ -8,7 +9,9 @@ interface Props {
 
 function AppProvider({ children }: Props) {
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <PaperProvider>{children}</PaperProvider>
+    </QueryClientProvider>
   );
 }
 

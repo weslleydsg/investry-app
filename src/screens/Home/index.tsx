@@ -1,19 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text, View } from 'react-native';
-import useIsDarkMode from '~/hooks/useIsDarkMode';
-import '~/services/i18n';
+import { Headline, withTheme } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import styles from './styles';
 
-function HomeScreen() {
+const HomeScreen = withTheme(({ theme }) => {
   const { t } = useTranslation();
-  const isDarkMode = useIsDarkMode();
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={[{ color: isDarkMode ? 'white' : 'black' }]}>
-        {t('screen.hello')}
-      </Text>
-    </View>
+    <SafeAreaView
+      style={[styles.screen, { margin: theme.spacings.large }]}
+      edges={['right', 'bottom', 'left']}
+    >
+      <Headline>{t('screen.hello')}</Headline>
+    </SafeAreaView>
   );
-}
+});
 
 export default HomeScreen;
