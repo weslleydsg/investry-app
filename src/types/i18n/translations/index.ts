@@ -9,6 +9,7 @@ export interface AppLanguageNamespace {
   };
   textInput: {
     withdrawPlaceholder: string;
+    withdrawError: string;
   };
 }
 

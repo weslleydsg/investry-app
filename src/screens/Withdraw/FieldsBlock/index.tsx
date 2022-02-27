@@ -9,6 +9,7 @@ interface Props {
   secondFieldLabel?: string;
   secondFieldValue?: string;
   id?: string;
+  maxValue?: number;
   onUpdateValue?(id: string, value: number): void;
 }
 
@@ -18,6 +19,7 @@ function FieldsBlock({
   secondFieldLabel,
   secondFieldValue,
   id,
+  maxValue,
   onUpdateValue,
 }: Props) {
   const theme = useTheme();
@@ -44,10 +46,10 @@ function FieldsBlock({
           <Field label={secondFieldLabel} value={secondFieldValue} />
         </>
       )}
-      {!!id && onUpdateValue && (
+      {!!id && !!maxValue && onUpdateValue && (
         <>
           <Divider style={{ marginVertical: theme.spacings.medium }} />
-          <ValueInput onBlur={onBlur} />
+          <ValueInput maxValue={maxValue} onChangeText={onBlur} />
         </>
       )}
     </Surface>

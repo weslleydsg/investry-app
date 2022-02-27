@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { View } from 'react-native';
 import { Caption, Card, Subheading, useTheme } from 'react-native-paper';
 import { HoldingsData } from '~/types';
-import { formatPrice } from '~/utils/NumberFormatter';
+import { formatCurrency } from '~/utils/NumberFormatter';
 import styles from './styles';
 
 interface Props {
@@ -17,7 +17,7 @@ function WalletItem({ item, disabled, onPress }: Props) {
     <Card
       style={{
         marginTop: theme.spacings.large,
-        opacity: disabled ? 0.6 : 1,
+        opacity: disabled ? theme.opacities.disabled : theme.opacities.enabled,
       }}
       onPress={disabled ? undefined : () => onPress(item)}
     >
@@ -30,7 +30,7 @@ function WalletItem({ item, disabled, onPress }: Props) {
         </View>
         <View style={[styles.priceView, { marginLeft: theme.spacings.medium }]}>
           <Subheading style={styles.textBold}>
-            {formatPrice(item.saldoTotal)}
+            {formatCurrency(item.saldoTotal)}
           </Subheading>
         </View>
       </Card.Content>

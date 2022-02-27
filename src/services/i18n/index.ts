@@ -10,7 +10,6 @@ i18n
   .init({
     compatibilityJSON: 'v3',
     resources,
-    // lng: 'pt',
     fallbackLng,
     ns: ['navigate', 'app'],
     defaultNS: 'app',

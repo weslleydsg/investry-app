@@ -5,7 +5,7 @@ import { FlatList, View } from 'react-native';
 import { Button, Title, withTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MainStack, Stock } from '~/types';
-import { formatPrice } from '~/utils/NumberFormatter';
+import { formatCurrency } from '~/utils/NumberFormatter';
 import FieldsBlock from './FieldsBlock';
 import styles from './styles';
 
@@ -43,7 +43,7 @@ const WithdrawScreen = withTheme(({ theme }) => {
         firstFieldLabel={t('name', { ns: 'glossary' })}
         firstFieldValue={params.holdingsData.nome}
         secondFieldLabel={t('availableBalance')}
-        secondFieldValue={formatPrice(params.holdingsData.saldoTotal)}
+        secondFieldValue={formatCurrency(params.holdingsData.saldoTotal)}
       />
       <Title
         style={{
@@ -60,7 +60,7 @@ const WithdrawScreen = withTheme(({ theme }) => {
     <View style={{ marginTop: theme.spacings.large }}>
       <FieldsBlock
         firstFieldLabel={t('totalWithdraw')}
-        firstFieldValue={formatPrice(totalWithdraw)}
+        firstFieldValue={formatCurrency(totalWithdraw)}
       />
     </View>
   );
@@ -72,8 +72,9 @@ const WithdrawScreen = withTheme(({ theme }) => {
         firstFieldLabel={t('stock', { ns: 'glossary' })}
         firstFieldValue={item.nome}
         secondFieldLabel={t('currentValue')}
-        secondFieldValue={formatPrice(value)}
+        secondFieldValue={formatCurrency(value)}
         id={item.id}
+        maxValue={value}
         onUpdateValue={onUpdateWithdrawValues}
       />
     );

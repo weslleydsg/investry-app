@@ -11,6 +11,7 @@ const namespace: AppLanguageNamespace = {
   },
   textInput: {
     withdrawPlaceholder: 'Valor a resgatar',
+    withdrawError: 'Valor não pode ser maior que {{value}}',
   },
 };
 
