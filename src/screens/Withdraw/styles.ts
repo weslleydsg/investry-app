@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  loadingView: {
+  safeAreaView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

@@ -1,5 +1,10 @@
-export default {
+import { NavigateLanguageNamespace } from '~/types';
+
+const namespace: NavigateLanguageNamespace = {
   headerTitle: {
-    home: 'Holdings',
+    home: 'Wallet',
+    withdraw: 'Withdraw',
   },
 };
+
+export default namespace;
