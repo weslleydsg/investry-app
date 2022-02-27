@@ -1,9 +1,9 @@
 import useFetch from '~/hooks/useFetch';
-import { Holdings } from '~/types';
+import { Wallets } from '~/types';
 
-export const GetHoldings = () => {
-  return useFetch<Holdings>(
-    'holdings',
+export const GetWallets = () => {
+  return useFetch<Wallets>(
+    'wallets',
     'v3/ca4ec77d-b941-4477-8a7f-95d4daf7a653',
     {},
     { staleTime: Infinity },

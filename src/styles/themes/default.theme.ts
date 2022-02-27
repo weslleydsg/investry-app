@@ -5,8 +5,8 @@ export const defaultTheme: ReactNativePaper.Theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#d9c428',
-    accent: '#015aa5',
+    primary: '#015aa5',
+    accent: '#f9e126',
   },
   spacings,
 };

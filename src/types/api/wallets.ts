@@ -1,16 +1,18 @@
+export interface Stock {
+  id: string;
+  nome: string;
+  percentual: number;
+}
+
 export interface HoldingsData {
   nome: string;
   objetivo: string;
   saldoTotal: number;
   indicadorCarencia: string;
-  acoes: {
-    id: string;
-    nome: string;
-    percentual: number;
-  }[];
+  acoes: Stock[];
 }
 
-export interface Holdings {
+export interface Wallets {
   response: {
     status: string;
     data: {

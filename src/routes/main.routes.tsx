@@ -9,6 +9,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { withTheme } from 'react-native-paper';
 import Home from '~/screens/Home';
+import Withdraw from '~/screens/Withdraw';
 import { MainStack } from '~/types';
 
 const Stack = createNativeStackNavigator<MainStack>();
@@ -31,6 +32,13 @@ const StackScreen = withTheme(({ theme }) => {
           name="Home"
           component={Home}
           options={{ headerTitle: t('headerTitle.home', { ns: 'navigate' }) }}
+        />
+        <Stack.Screen
+          name="Withdraw"
+          component={Withdraw}
+          options={{
+            headerTitle: t('headerTitle.withdraw', { ns: 'navigate' }),
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

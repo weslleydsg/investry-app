@@ -1,46 +1,31 @@
-import React from 'react';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import React, { useCallback } from 'react';
 import { FlatList, View } from 'react-native';
-import {
-  ActivityIndicator,
-  Caption,
-  Card,
-  Subheading,
-  withTheme,
-} from 'react-native-paper';
+import { ActivityIndicator, withTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { GetHoldings } from '~/services/api/holdings';
-import { HoldingsData } from '~/types';
-import { formatPrice } from '~/utils/NumberFormatter';
+import { GetWallets } from '~/services/api/wallets';
+import { HoldingsData, MainStack } from '~/types';
 import styles from './styles';
+import WalletItem from './WalletItem';
 
 const HomeScreen = withTheme(({ theme }) => {
-  const { isFetching, data } = GetHoldings();
-  const holdings = data?.data?.response.data.listaInvestimentos;
+  const { navigate } = useNavigation<NavigationProp<MainStack>>();
+  const { isFetching, data } = GetWallets();
+  const wallets = data?.data?.response.data.listaInvestimentos;
+
+  const goToWithdraw = useCallback(
+    (holdingsData: HoldingsData) => {
+      navigate('Withdraw', { holdingsData });
+    },
+    [navigate],
+  );
 
   const keyExtractor = (_: HoldingsData, index: number) => `${index}`;
 
   const renderItem = ({ item }: { item: HoldingsData }) => {
+    const disabled = item.indicadorCarencia === 'S';
     return (
-      <Card style={{ marginTop: theme.spacings.large }}>
-        <Card.Content style={styles.holdingItem}>
-          <View style={styles.holdingItemInfo}>
-            <Subheading style={styles.holdingItemBold} numberOfLines={2}>
-              {item.nome}
-            </Subheading>
-            <Caption numberOfLines={2}>{item.objetivo}</Caption>
-          </View>
-          <View
-            style={[
-              styles.holdingItemPrice,
-              { marginLeft: theme.spacings.medium },
-            ]}
-          >
-            <Subheading style={styles.holdingItemBold}>
-              {formatPrice(item.saldoTotal)}
-            </Subheading>
-          </View>
-        </Card.Content>
-      </Card>
+      <WalletItem item={item} disabled={disabled} onPress={goToWithdraw} />
     );
   };
 
@@ -54,7 +39,7 @@ const HomeScreen = withTheme(({ theme }) => {
   return (
     <SafeAreaView edges={['right', 'bottom', 'left']}>
       <FlatList
-        data={holdings}
+        data={wallets}
         contentContainerStyle={{
           paddingHorizontal: theme.spacings.large,
           paddingBottom: theme.spacings.large,
