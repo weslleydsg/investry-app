@@ -8,6 +8,10 @@ export declare global {
         medium: number;
         large: number;
       };
+      opacities: {
+        enabled: number;
+        disabled: number;
+      };
     }
   }
 }
