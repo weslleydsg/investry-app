@@ -6,10 +6,19 @@ export interface AppLanguageNamespace {
   totalWithdraw: string;
   button: {
     withdraw: string;
+    newWithdraw: string;
+    fixWithdraw: string;
   };
   textInput: {
     withdrawPlaceholder: string;
     withdrawError: string;
+  };
+  modal: {
+    withdrawSuccessTitle: string;
+    withdrawErrorTitle: string;
+    withdrawSuccessSubtitle: string;
+    withdrawErrorSubtitle: string;
+    withdrawMaxValueError: string;
   };
 }
 

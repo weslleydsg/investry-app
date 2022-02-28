@@ -24,7 +24,7 @@ function FieldsBlock({
 }: Props) {
   const theme = useTheme();
 
-  const onBlur = useCallback(
+  const onChangeText = useCallback(
     (value: number) => {
       if (!id || !onUpdateValue) return;
       onUpdateValue(id, value);
@@ -49,7 +49,7 @@ function FieldsBlock({
       {!!id && !!maxValue && onUpdateValue && (
         <>
           <Divider style={{ marginVertical: theme.spacings.medium }} />
-          <ValueInput maxValue={maxValue} onChangeText={onBlur} />
+          <ValueInput maxValue={maxValue} onChangeText={onChangeText} />
         </>
       )}
     </Surface>

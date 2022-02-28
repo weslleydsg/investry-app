@@ -7,6 +7,7 @@ export declare global {
       spacings: {
         medium: number;
         large: number;
+        huge: number;
       };
       opacities: {
         enabled: number;

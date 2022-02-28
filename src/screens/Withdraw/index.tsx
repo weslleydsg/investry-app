@@ -1,4 +1,9 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, View } from 'react-native';
@@ -7,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { MainStack, Stock } from '~/types';
 import { formatCurrency } from '~/utils/NumberFormatter';
 import FieldsBlock from './FieldsBlock';
+import Modal from './Modal';
 import styles from './styles';
 
 type WithdrawValues = {
@@ -15,13 +21,47 @@ type WithdrawValues = {
 
 const WithdrawScreen = withTheme(({ theme }) => {
   const { t } = useTranslation();
+  const { navigate } = useNavigation<NavigationProp<MainStack>>();
   const { params } = useRoute<RouteProp<MainStack, 'Withdraw'>>();
   const [withdrawValues, setWithdrawValues] = useState<WithdrawValues>({});
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [errorsModalStocks, setErrorsModalStocks] = useState<Stock[]>([]);
+
+  const isButtonDisabled = useMemo<boolean>(() => {
+    const values = Object.values(withdrawValues);
+    if (values.length === 0) return true;
+    return values.findIndex((withdrawValue) => withdrawValue > 0) === -1;
+  }, [withdrawValues]);
 
   const totalWithdraw = useMemo<number>(() => {
     const values = Object.values(withdrawValues);
     return values.reduce((previousValue, value) => previousValue + value, 0);
   }, [withdrawValues]);
+
+  const onWithdraw = () => {
+    const keys = Object.entries(withdrawValues);
+    const stocksError = params.holdingsData.acoes.filter((stock) => {
+      const entry = keys.find(([id]) => stock.id === id);
+      if (!entry) return false;
+      const [, withdrawValue] = entry;
+      const maxValue =
+        (params.holdingsData.saldoTotal * stock.percentual) / 100;
+      return withdrawValue > maxValue;
+    });
+    if (stocksError.length === 0) {
+      setSuccessModalVisible(true);
+    } else {
+      setErrorsModalStocks(stocksError);
+    }
+  };
+
+  const onNewWithdrawPress = useCallback(() => {
+    navigate('Home');
+  }, [navigate]);
+
+  const onWithdrawFixPress = useCallback(() => {
+    setErrorsModalStocks([]);
+  }, []);
 
   const onUpdateWithdrawValues = useCallback((id: string, value: number) => {
     setWithdrawValues((previousValue) => ({ ...previousValue, [id]: value }));
@@ -95,7 +135,25 @@ const WithdrawScreen = withTheme(({ theme }) => {
         keyExtractor={keyExtractor}
         renderItem={renderItem}
       />
-      <Button mode="contained">{t('button.withdraw')}</Button>
+      <Modal
+        visible={successModalVisible}
+        title={t('modal.withdrawSuccessTitle')}
+        subtitle={t('modal.withdrawSuccessSubtitle')}
+        buttonText={t('button.newWithdraw')}
+        onButtonPress={onNewWithdrawPress}
+      />
+      <Modal
+        visible={errorsModalStocks.length > 0}
+        title={t('modal.withdrawErrorTitle')}
+        subtitle={t('modal.withdrawErrorSubtitle')}
+        buttonText={t('button.fixWithdraw')}
+        availableBalance={params.holdingsData.saldoTotal}
+        errors={errorsModalStocks}
+        onButtonPress={onWithdrawFixPress}
+      />
+      <Button mode="contained" onPress={onWithdraw} disabled={isButtonDisabled}>
+        {t('button.withdraw')}
+      </Button>
     </SafeAreaView>
   );
 });
