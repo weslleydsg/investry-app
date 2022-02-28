@@ -37,7 +37,10 @@ const HomeScreen = withTheme(({ theme }) => {
     );
   }
   return (
-    <SafeAreaView edges={['right', 'bottom', 'left']}>
+    <SafeAreaView
+      style={styles.safeAreaView}
+      edges={['right', 'bottom', 'left']}
+    >
       <FlatList
         data={wallets}
         contentContainerStyle={{
