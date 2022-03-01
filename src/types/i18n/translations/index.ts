@@ -1,3 +1,9 @@
+export interface CommonLanguageNamespace {
+  button: {
+    retry: string;
+  };
+}
+
 export interface AppLanguageNamespace {
   aboutWallet: string;
   withdrawTitle: string;
@@ -20,6 +26,10 @@ export interface AppLanguageNamespace {
     withdrawErrorSubtitle: string;
     withdrawMaxValueError: string;
   };
+  error: {
+    unexpected: string;
+    network: string;
+  };
 }
 
 export interface NavigateLanguageNamespace {
@@ -35,6 +45,7 @@ export interface GlossaryLanguageNamespace {
 }
 
 export type LanguageRecourse = {
+  common: CommonLanguageNamespace;
   app: AppLanguageNamespace;
   navigate: NavigateLanguageNamespace;
   glossary: GlossaryLanguageNamespace;

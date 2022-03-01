@@ -24,6 +24,11 @@ const namespace: AppLanguageNamespace = {
       'Você preencheu um ou mais campos com valor acima do permitido:',
     withdrawMaxValueError: '{{stock}}: valor máximo de {{value}}.',
   },
+  error: {
+    unexpected:
+      'Algo inesperado aconteceu. Por favor, tente novamente mais tarde',
+    network: 'Conecte-se a internet para continuar',
+  },
 };
 
 export default namespace;

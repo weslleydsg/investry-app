@@ -24,6 +24,10 @@ const namespace: AppLanguageNamespace = {
       'One or more fields have value greater than allowed:',
     withdrawMaxValueError: '{{stock}}: maximum value is {{value}}.',
   },
+  error: {
+    unexpected: 'Unexpected error. Please, try again later',
+    network: 'You need to be connected to internet',
+  },
 };
 
 export default namespace;
