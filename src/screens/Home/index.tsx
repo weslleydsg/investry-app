@@ -3,14 +3,16 @@ import React, { useCallback } from 'react';
 import { FlatList, View } from 'react-native';
 import { ActivityIndicator, withTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ErrorScreen from '~/components/ErrorScreen';
 import { GetWallets } from '~/services/api/wallets';
 import { HoldingsData, MainStack } from '~/types';
+import { ErrorMessages } from '~/utils/Constants';
 import styles from './styles';
 import WalletItem from './WalletItem';
 
 const HomeScreen = withTheme(({ theme }) => {
   const { navigate } = useNavigation<NavigationProp<MainStack>>();
-  const { isFetching, data } = GetWallets();
+  const { isFetching, data, error, refetch } = GetWallets();
   const wallets = data?.data?.response.data.listaInvestimentos;
 
   const goToWithdraw = useCallback(
@@ -34,6 +36,14 @@ const HomeScreen = withTheme(({ theme }) => {
       <View style={styles.loadingView}>
         <ActivityIndicator />
       </View>
+    );
+  }
+  if (error) {
+    return (
+      <ErrorScreen
+        networkError={error?.message === ErrorMessages.network}
+        onRetryPress={refetch}
+      />
     );
   }
   return (

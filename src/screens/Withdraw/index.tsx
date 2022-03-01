@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, View } from 'react-native';
+import { FlatList, KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Button, Title, withTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MainStack, Stock } from '~/types';
@@ -121,40 +121,49 @@ const WithdrawScreen = withTheme(({ theme }) => {
   };
 
   return (
-    <SafeAreaView
-      style={styles.safeAreaView}
-      edges={['right', 'bottom', 'left']}
+    <KeyboardAvoidingView
+      style={styles.keyboardAvoidingView}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <FlatList
-        contentContainerStyle={{
-          paddingVertical: theme.spacings.large,
-        }}
-        data={params.holdingsData.acoes}
-        ListHeaderComponent={ListHeaderComponent}
-        ListFooterComponent={ListFooterComponent}
-        keyExtractor={keyExtractor}
-        renderItem={renderItem}
-      />
-      <Modal
-        visible={successModalVisible}
-        title={t('modal.withdrawSuccessTitle')}
-        subtitle={t('modal.withdrawSuccessSubtitle')}
-        buttonText={t('button.newWithdraw')}
-        onButtonPress={onNewWithdrawPress}
-      />
-      <Modal
-        visible={errorsModalStocks.length > 0}
-        title={t('modal.withdrawErrorTitle')}
-        subtitle={t('modal.withdrawErrorSubtitle')}
-        buttonText={t('button.fixWithdraw')}
-        availableBalance={params.holdingsData.saldoTotal}
-        errors={errorsModalStocks}
-        onButtonPress={onWithdrawFixPress}
-      />
-      <Button mode="contained" onPress={onWithdraw} disabled={isButtonDisabled}>
-        {t('button.withdraw')}
-      </Button>
-    </SafeAreaView>
+      <SafeAreaView
+        style={styles.safeAreaView}
+        edges={['right', 'bottom', 'left']}
+      >
+        <FlatList
+          contentContainerStyle={{
+            paddingVertical: theme.spacings.large,
+          }}
+          data={params.holdingsData.acoes}
+          ListHeaderComponent={ListHeaderComponent}
+          ListFooterComponent={ListFooterComponent}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
+        />
+        <Modal
+          visible={successModalVisible}
+          title={t('modal.withdrawSuccessTitle')}
+          subtitle={t('modal.withdrawSuccessSubtitle')}
+          buttonText={t('button.newWithdraw')}
+          onButtonPress={onNewWithdrawPress}
+        />
+        <Modal
+          visible={errorsModalStocks.length > 0}
+          title={t('modal.withdrawErrorTitle')}
+          subtitle={t('modal.withdrawErrorSubtitle')}
+          buttonText={t('button.fixWithdraw')}
+          availableBalance={params.holdingsData.saldoTotal}
+          errors={errorsModalStocks}
+          onButtonPress={onWithdrawFixPress}
+        />
+        <Button
+          mode="contained"
+          onPress={onWithdraw}
+          disabled={isButtonDisabled}
+        >
+          {t('button.withdraw')}
+        </Button>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 });
 
