@@ -1,35 +1,14 @@
-import React, { Suspense } from 'react';
-import { ActivityIndicator, Platform, StatusBar, View } from 'react-native';
-import useIsDarkMode from '~/hooks/useIsDarkMode';
-import AppProvider from '~/providers/AppProvider';
+import React from 'react';
+import { Platform, StatusBar } from 'react-native';
+import { withTheme } from 'react-native-paper';
 import Routes from '~/routes';
-import '~/services/i18n';
 
-function App() {
-  const isDarkMode = useIsDarkMode();
-  StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'dark-content');
+const App = withTheme(({ theme }) => {
+  StatusBar.setBarStyle(theme.dark ? 'light-content' : 'dark-content');
   if (Platform.OS === 'android' && Platform.Version >= 23) {
-    StatusBar.setBackgroundColor(isDarkMode ? 'gray' : 'white');
+    StatusBar.setBackgroundColor(theme.colors.background);
   }
-  return (
-    <Suspense
-      fallback={
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ActivityIndicator />
-        </View>
-      }
-    >
-      <AppProvider>
-        <Routes />
-      </AppProvider>
-    </Suspense>
-  );
-}
+  return <Routes />;
+});
 
 export default App;
