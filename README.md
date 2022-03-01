@@ -18,6 +18,8 @@ yarn
 cp .env.example .env
 ```
 
+Open .env file and insert WALLET_ENDPOINT value. If you don't have one you can create at [Mocky](https://designer.mocky.io/).
+
 ## Running the app
 
 ### Running metro bundler
