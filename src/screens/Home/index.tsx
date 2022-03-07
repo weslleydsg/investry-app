@@ -1,9 +1,10 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
-import { FlatList, View } from 'react-native';
-import { ActivityIndicator, withTheme } from 'react-native-paper';
+import { FlatList } from 'react-native';
+import { withTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ErrorScreen from '~/components/ErrorScreen';
+import LoadingScreen from '~/components/LoadingScreen';
 import { GetWallets } from '~/services/api/wallets';
 import { HoldingsData, MainStack } from '~/types';
 import { ErrorMessages } from '~/utils/Constants';
@@ -32,16 +33,12 @@ const HomeScreen = withTheme(({ theme }) => {
   };
 
   if (isFetching) {
-    return (
-      <View style={styles.loadingView}>
-        <ActivityIndicator />
-      </View>
-    );
+    return <LoadingScreen />;
   }
   if (error) {
     return (
       <ErrorScreen
-        networkError={error?.message === ErrorMessages.network}
+        networkError={error.message === ErrorMessages.network}
         onRetryPress={refetch}
       />
     );

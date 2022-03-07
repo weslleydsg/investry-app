@@ -4,7 +4,7 @@ import useIsDarkMode from '~/hooks/useIsDarkMode';
 import { darkTheme, defaultTheme } from '~/styles';
 
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactElement;
 }
 
 function Provider({ children }: Props) {

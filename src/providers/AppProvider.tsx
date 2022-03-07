@@ -4,7 +4,7 @@ import { queryClient } from '~/services/queryClient';
 import PaperProvider from './PaperProvider';
 
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactElement;
 }
 
 function AppProvider({ children }: Props) {

@@ -25,6 +25,7 @@ function ValueInput({ maxValue, onChangeText }: Props) {
   return (
     <>
       <TextInput
+        testID="ValueInput.TextInput"
         dense
         returnKeyType="done"
         keyboardType="numeric"
