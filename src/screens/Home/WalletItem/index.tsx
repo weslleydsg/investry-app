@@ -15,6 +15,7 @@ function WalletItem({ item, disabled, onPress }: Props) {
   const theme = useTheme();
   return (
     <Card
+      testID="WalletItem.Card"
       style={{
         marginTop: theme.spacings.large,
         opacity: disabled ? theme.opacities.disabled : theme.opacities.enabled,

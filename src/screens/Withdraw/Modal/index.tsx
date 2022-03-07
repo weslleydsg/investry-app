@@ -80,6 +80,7 @@ function Modal({
             })}
         </View>
         <Button
+          testID="Modal.button"
           style={[styles.button, { marginTop: theme.spacings.huge }]}
           mode="contained"
           onPress={onButtonPress}
